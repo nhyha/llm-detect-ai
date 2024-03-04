@@ -5,19 +5,19 @@ import torch.utils.checkpoint
 from transformers import AutoConfig, AutoModel
 
 
-def get_ranking_loss(logits, labels, margin=0.7):
-    logits = torch.sigmoid(logits)
-    labels1 = labels.unsqueeze(1)
-    labels2 = labels.unsqueeze(0)
+# def get_ranking_loss(logits, labels, margin=0.7):
+#     logits = torch.sigmoid(logits)
+#     labels1 = labels.unsqueeze(1)
+#     labels2 = labels.unsqueeze(0)
 
-    logits1 = logits.unsqueeze(1)
-    logits2 = logits.unsqueeze(0)
+#     logits1 = logits.unsqueeze(1)
+#     logits2 = logits.unsqueeze(0)
 
-    y_ij = torch.sign(labels1 - labels2)
-    r_ij = logits1 - logits2
+#     y_ij = torch.sign(labels1 - labels2)
+#     r_ij = logits1 - logits2
 
-    loss = torch.clamp(-r_ij*y_ij + margin, min=0.0).mean()
-    return loss
+#     loss = torch.clamp(-r_ij*y_ij + margin, min=0.0).mean()
+#     return loss
 
 
 class MeanPooling(nn.Module):
@@ -71,6 +71,8 @@ class AiModel(nn.Module):
         self.classifier = nn.Linear(num_features, 1)
 
         self.pool = MeanPooling()
+                # BCEWithLogitsLoss 추가
+        self.loss_fn = nn.BCEWithLogitsLoss()
 
     def encode(
         self,
@@ -88,19 +90,35 @@ class AiModel(nn.Module):
 
         return embeddings
 
-    def forward(self, input_ids, attention_mask, labels=None, **kwargs):
+
+    def forward(self, input_ids, attention_mask, labels=None):
         # features
-        features = self.encode(
-            input_ids=input_ids,
-            attention_mask=attention_mask,
-        )
+        features = self.encode(input_ids=input_ids, attention_mask=attention_mask)
         features = self.dropout(features)
-        logits = self.classifier(features).reshape(-1)
+        logits = self.classifier(features).squeeze(-1)  # 차원 축소
 
         # loss
         loss = None
-        labels = labels.reshape(-1)
         if labels is not None:
-            loss = get_ranking_loss(logits, labels)
+            # labels 형태 변환 및 dtype 변환 (BCEWithLogitsLoss에 맞게)
+            labels = labels.float()  # BCEWithLogitsLoss를 위해 float 타입으로 변환
+            loss = self.loss_fn(logits, labels)
 
         return logits, loss
+        
+    # def forward(self, input_ids, attention_mask, labels=None, **kwargs):
+    #     # features
+    #     features = self.encode(
+    #         input_ids=input_ids,
+    #         attention_mask=attention_mask,
+    #     )
+    #     features = self.dropout(features)
+    #     logits = self.classifier(features).reshape(-1)
+
+    #     # loss
+    #     loss = None
+    #     labels = labels.reshape(-1)
+    #     if labels is not None:
+    #         loss = get_ranking_loss(logits, labels)
+
+    #     return logits, loss
