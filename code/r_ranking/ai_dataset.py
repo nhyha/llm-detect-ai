@@ -18,9 +18,9 @@ class AiDataset:
     def tokenize_function(self, examples):
         tz = self.tokenizer(
             examples["text"],
-            padding=False,
+            padding=True,
             truncation=True,
-            max_length=self.cfg.model.max_length,
+            max_length=512,
             add_special_tokens=True,
             return_token_type_ids=False,
         )
