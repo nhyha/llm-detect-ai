@@ -75,7 +75,7 @@ class AiCollatorTrain(DataCollatorWithPadding):
 
         # mappings
         example2idx = dict()
-        example_ids = self.train_ds["id"]
+        example_ids = self.train_ds["metadata"]
 
         for idx in range(len(example_ids)):
             example2idx[example_ids[idx]] = idx
@@ -113,7 +113,7 @@ class AiCollatorTrain(DataCollatorWithPadding):
             features = self.process_features(selected_example_ids)
 
         labels = None
-        if "generated" in features[0].keys():
+        if "prediction" in features[0].keys():
             labels = [feature["prediction"] for feature in features]
 
         features = [
