@@ -107,10 +107,10 @@ class AiCollatorTrain(DataCollatorWithPadding):
     def __call__(self, features):
         bs = len(features)
 
-        if self.rng.random() < 0.8:
+        # if self.rng.random() < 0.8:
             # selected_prompt_id = self.rng.choice(self.prompt_ids)
             # selected_example_ids = self.rng.sample(self.prompt2ids[selected_prompt_id], k=bs)
-            features = self.process_features(selected_example_ids)
+            # features = self.process_features(selected_example_ids)
 
         labels = None
         if "prediction" in features[0].keys():
