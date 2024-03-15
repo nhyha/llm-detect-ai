@@ -101,16 +101,16 @@ We fine-tuned a wide variety of LLMs using the CLM objective on [PERSUADE](https
 accelerate launch ./code/generate_r_clm.py \
 --config_path ./conf/r_clm/conf_r_clm_generate.yaml
 
-accelerate launch ./code/generate_r_clm.py \
---config_path ./conf/r_clm/conf_r_clm_generate_tiny_llama.yaml
+# accelerate launch ./code/generate_r_clm.py \
+# --config_path ./conf/r_clm/conf_r_clm_generate_tiny_llama.yaml
 
-accelerate launch ./code/generate_r_clm.py \
---config_path ./conf/r_clm/conf_r_clm_generate_pythia.yaml
+# accelerate launch ./code/generate_r_clm.py \
+# --config_path ./conf/r_clm/conf_r_clm_generate_pythia.yaml
 
-accelerate launch ./code/generate_r_clm.py \
---config_path ./conf/r_clm/conf_r_clm_generate_bloom.yaml
+# accelerate launch ./code/generate_r_clm.py \
+# --config_path ./conf/r_clm/conf_r_clm_generate_bloom.yaml
 
-accelerate launch ./code/generate_r_clm.py \
+# accelerate launch ./code/generate_r_clm.py \
 --config_path ./conf/r_clm/conf_r_clm_generate_gpt2.yaml
 
 accelerate launch ./code/generate_r_clm.py \
