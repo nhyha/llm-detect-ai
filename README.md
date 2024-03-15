@@ -101,6 +101,9 @@ We fine-tuned a wide variety of LLMs using the CLM objective on [PERSUADE](https
 accelerate launch ./code/generate_r_clm.py \
 --config_path ./conf/r_clm/conf_r_clm_generate.yaml
 
+accelerate launch ./code/generate_r_clm.py \
+--config_path ./conf/r_clm/conf_r_clm_generate_gemma.yaml
+
 # accelerate launch ./code/generate_r_clm.py \
 # --config_path ./conf/r_clm/conf_r_clm_generate_tiny_llama.yaml
 
@@ -111,22 +114,22 @@ accelerate launch ./code/generate_r_clm.py \
 # --config_path ./conf/r_clm/conf_r_clm_generate_bloom.yaml
 
 # accelerate launch ./code/generate_r_clm.py \
---config_path ./conf/r_clm/conf_r_clm_generate_gpt2.yaml
+# --config_path ./conf/r_clm/conf_r_clm_generate_gpt2.yaml
 
-accelerate launch ./code/generate_r_clm.py \
---config_path ./conf/r_clm/conf_r_clm_generate_opt.yaml
+# accelerate launch ./code/generate_r_clm.py \
+# --config_path ./conf/r_clm/conf_r_clm_generate_opt.yaml
 
-accelerate launch ./code/generate_r_clm.py \
---config_path ./conf/r_clm/conf_r_clm_generate_falcon.yaml
+# accelerate launch ./code/generate_r_clm.py \
+# --config_path ./conf/r_clm/conf_r_clm_generate_falcon.yaml
 
-accelerate launch ./code/generate_r_clm.py \
---config_path ./conf/r_clm/conf_r_clm_generate_mpt.yaml
+# accelerate launch ./code/generate_r_clm.py \
+# --config_path ./conf/r_clm/conf_r_clm_generate_mpt.yaml
 
-accelerate launch ./code/generate_r_clm.py \
---config_path ./conf/r_clm/conf_r_clm_generate_llama13b.yaml
+# accelerate launch ./code/generate_r_clm.py \
+# --config_path ./conf/r_clm/conf_r_clm_generate_llama13b.yaml
 
-accelerate launch ./code/generate_r_clm_from_scratch.py \
---config_path ./conf/r_clm/conf_r_clm_generate_mistral_persuade.yaml
+# accelerate launch ./code/generate_r_clm_from_scratch.py \
+# --config_path ./conf/r_clm/conf_r_clm_generate_mistral_persuade.yaml
 ```
 
 Optionally, the fine-tuning of LLMs for text generation can be done using the following commands:
